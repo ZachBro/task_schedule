@@ -9,6 +9,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
                                      password:              "foo",
                                      password_confirmation: "bar" } }
       end
+      assert_not logged_in?
       assert_template 'users/new'
   end
 
@@ -19,8 +20,8 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
                                      password:              "foobar",
                                      password_confirmation: "foobar" } }
     end
-    # assert_redirected_to user_path
     follow_redirect!
+    assert logged_in?
     assert_template 'users/show'
   end
 end
